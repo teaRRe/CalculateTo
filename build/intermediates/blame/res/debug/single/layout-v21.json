@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    }
+]
