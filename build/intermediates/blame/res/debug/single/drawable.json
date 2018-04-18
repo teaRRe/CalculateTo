@@ -24,12 +24,12 @@
         "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\drawable\\abc_ic_go_search_api_material.xml"
     },
     {
-        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable\\number_0.png",
-        "source": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\src\\main\\res\\drawable\\number_0.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
         "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable\\number_0.png",
+        "source": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\src\\main\\res\\drawable\\number_0.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
