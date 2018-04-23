@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/TableLayout2"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="0,1,2,3"
     android:gravity="center"
+    android:stretchColumns="4"
     >
 
     <LinearLayout
@@ -36,19 +37,22 @@
     </LinearLayout>
 <!-- - M系列-->
     <LinearLayout
+        android:gravity="center"
         >
         <Button android:textSize="20dp"
             android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_mc"
             android:text="mc"
             android:tag="mc"
             android:background="#f5f5f5"
-            android:textColor="#868686"/>
+            android:textColor="#868686"
+            tools:ignore="ButtonStyle" />
         <Button android:textSize="20dp"
             android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_mc_in"
             android:text="mc+"
             android:tag="mc+"
             android:background="#f5f5f5"
-            android:textColor="#868686"/>
+            android:textColor="#868686"
+            tools:ignore="ButtonStyle" />
         <Button android:textSize="20dp"
             android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_mc_de"
             android:text="mc-"
@@ -63,8 +67,9 @@
             android:textColor="#868686"/>
     </LinearLayout>
 <!--第二行-->
-    <LinearLayout>
-
+    <LinearLayout
+        android:gravity="center"
+        >
         <Button
             android:id="@+id/btn_c"
             android:layout_width="wrap_content"
@@ -108,6 +113,7 @@
     </LinearLayout>
 <!--第三行-->
     <LinearLayout
+        android:gravity="center"
         >
         <Button android:textSize="20dp"
             android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_7"
@@ -130,7 +136,8 @@
             android:textColor="#007def"/>
     </LinearLayout>
 <!--第四行-->
-    <LinearLayout>
+    <LinearLayout
+        android:gravity="center">
         <Button android:textSize="20dp"
             android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_4"
               android:background="#ffffff" android:text="4" android:tag="4"
@@ -155,55 +162,110 @@
             android:textColor="#007def"/>
     </LinearLayout>
 <!--第五行-->
+
     <LinearLayout
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_height="wrap_content" android:layout_width="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content" android:layout_height="wrap_content">
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_1"
-                      android:background="#ffffff" android:text="1" android:tag="1"/>
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_2"
-                      android:background="#ffffff" android:text="2" android:tag="2"/>
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_3"
-                      android:background="#ffffff" android:text="3" android:tag="3"/>
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content" android:layout_height="wrap_content">
-
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_left"
-                      android:background="#ffffff" android:text="%" android:tag="%"/>
-
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_0"
-                      android:background="#ffffff" android:text="0" android:tag="0"/>
-                <Button android:textSize="20dp"
-                    android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/btn_dot"
-                      android:background="#ffffff" android:text="." android:tag="."/>
-            </LinearLayout>
-
-        </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_height="wrap_content" android:layout_width="match_parent">
-            <Button android:textSize="20dp"
-                android:id="@+id/btn_cal"
+            android:gravity="center"
+            android:id="@+id/lay_calLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="="
-                android:tag="="
-                android:background="#007dff"
-                android:textColor="#ffffff"/>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="1"
+                        android:text="1"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:id="@+id/btn_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="2"
+                        android:text="2"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:id="@+id/btn_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="3"
+                        android:text="3"
+                        android:textSize="20dp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="%"
+                        android:text="%"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:id="@+id/btn_0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="0"
+                        android:text="0"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:id="@+id/btn_dot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:tag="."
+                        android:text="."
+                        android:textSize="20dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#007dff"
+                    android:tag="="
+                    android:text="="
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
+
+
 
 
 </TableLayout>

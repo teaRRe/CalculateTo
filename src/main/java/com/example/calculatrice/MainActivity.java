@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Stack mainText2 = new Stack();
     private TextView text_minor;
     private int stateFlag;
+    private LinearLayout lay_calLay;
     //M运算
     private Button btn_mc;private Button btn_mc_in;private Button btn_mc_de;private Button btn_mr;
     //0~9
@@ -60,14 +61,17 @@ public class MainActivity extends AppCompatActivity {
         getButtonInstance();
         text_display = (TextView) findViewById(R.id.text_display);
         text_minor = (TextView) findViewById(R.id.text_minor);
+        lay_calLay = (LinearLayout) findViewById(R.id.lay_calLay);
 
         //动态获取高度
         BTN_CALCULATE_HEIGHT = convertDpToPixel((convertPixelToDp(dm.heightPixels)-150)/6 * 2);
         BTN_WIDTH = dm.widthPixels/4;
         BTN_HEIGHT = convertDpToPixel(((convertPixelToDp(dm.heightPixels)-150)/6));
+
         //设置高度
         setBtnHeight(BTN_HEIGHT);
         btn_cal.setHeight(BTN_CALCULATE_HEIGHT);
+
         //初始化显示字符串
         text_display.setText("");
 
@@ -110,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //隐藏虚拟按键，并且全屏
     protected void hideBottomUIMenu() {
-        //隐藏虚拟按键，并且全屏
+
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
             View v = this.getWindow().getDecorView();
             v.setSystemUiVisibility(View.GONE);
@@ -256,40 +260,46 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener lsn_clk_btn_cal = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            try{
+                String temps = "";
+                //栈转为集合
+                List tempList = new ArrayList(mainText2);
+                //集合转为字符串
+                for (Object s:tempList
+                        ) {
+                    temps = temps + s;
+                    Log.i("Log",s + "");
+                }
+                //寻找符号位置
+                for (int i = 0; i<temps.length(); i ++){
+                    if (tempList.get(i).equals(sym))
+                        symLocation = i;
+                }
 
-            String temps = "";
-            List tempList = new ArrayList(mainText2);
-            for (Object s:tempList
-                 ) {
-                temps = temps + s;
-                Log.i("Log",s + "");
+                symLocation = tempList.indexOf(sym);
+                //第二操作数
+                String calNum2Str="";
+
+                for (int i = symLocation +1; i<tempList.size(); i++){
+                    calNum2Str = calNum2Str + tempList.get(i);
+                }
+                Log.i("Log", "符号:" + sym + "  位置：" +symLocation + "第二个：" + calNum2Str + " 第一个：" +calNum1);
+
+                calNum2 = Double.parseDouble(calNum2Str.toString());
+
+                Double result = calBySymAndNum(calNum1,calNum2,sym);
+
+                stateFlag =1;
+                mainText2.clear();
+
+                text_minor.setText(text_display.getText() + "=");
+                text_display.setText(result + "");
+            }catch (Exception e){
+                Log.i("Log",e.getMessage());
+            }finally {
+
             }
-            for (int i = 0; i<temps.length(); i ++){
-                if (tempList.get(i).equals(sym))
-                    symLocation = i;
-            }
 
-            symLocation = tempList.indexOf(sym);
-
-            String calNum2Str="";
-
-            for (int i = symLocation +1; i<tempList.size(); i++){
-                calNum2Str = calNum2Str + tempList.get(i);
-            }
-            Log.i("Log", "符号:" + sym + "  位置：" +symLocation + "第二个：" + calNum2Str + " 第一个：" +calNum1);
-
-           calNum2 = Double.parseDouble(calNum2Str.toString());
-
-            Double result = calBySymAndNum(calNum1,calNum2,sym);
-
-            stateFlag =1;
-            mainText2.clear();
-
-            text_minor.setText(text_display.getText() + "=");
-            text_display.setText(result + "");
-
-            /*int s = mainText2.search("x");
-            Log.i("Log","---" + s);*/
         }
     };
     //【util】区、M行触摸事件实现
@@ -303,31 +313,35 @@ public class MainActivity extends AppCompatActivity {
                     /**
                      * 同时能且只能有一个运算符号显示在主窗口和入栈
                      */
-                    if (!mainText2.empty() && isCalSymbol(v.getTag().toString())){
-                        text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
-                        mainText2.add(v.getTag().toString());
+                    try {
+                        if (!mainText2.empty() && isCalSymbol(v.getTag().toString())){
+                            text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
+                            mainText2.add(v.getTag().toString());
 
 
-                        temp1 = (Stack) mainText2.clone();
+                            temp1 = (Stack) mainText2.clone();
                         /*//符号的位置
                         symLocation = temp1.search(sym);*/
-                        //获取栈顶的符号
-                        sym = temp1.pop().toString();
-                        //获取第一操作数
-                        String tempString = "";
-                        for (int i = 0; i < temp1.size(); i++){
-                            tempString = tempString + temp1.get(i);
-                        }
-                        calNum1 =  Double.parseDouble(tempString);
+                            //获取栈顶的符号
+                            sym = temp1.pop().toString();
+                            //获取第一操作数
+                            String tempString = "";
+                            for (int i = 0; i < temp1.size(); i++){
+                                tempString = tempString + temp1.get(i);
+                            }
+                            calNum1 =  Double.parseDouble(tempString);
 
-                        //temp1 = null;
+                            //temp1 = null;
+
+                        }
+                    }catch (Exception e){
+
+                    }finally {
 
                     }
 
                     break;
                 case MotionEvent.ACTION_UP:
-
-
                     v.setBackgroundColor(0xFFF5F5F5);
                     break;
             }

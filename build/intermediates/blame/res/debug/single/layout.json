@@ -1,11 +1,11 @@
 [
     {
-        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
-        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_item_layout.xml",
         "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",

@@ -1,4 +1,4 @@
-#Wed Apr 18 10:05:55 CST 2018
+#Mon Apr 23 12:52:21 CST 2018
 base.0=D\:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_898ea2fd1d99176ee0cdd788ff836f552a8d9205
 renamed.1=classes2.dex
 renamed.0=classes.dex

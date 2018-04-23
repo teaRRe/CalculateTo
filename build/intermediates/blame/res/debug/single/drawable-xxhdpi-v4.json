@@ -1,11 +1,11 @@
 [
     {
-        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
-        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
         "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
+        "source": "E:\\AndroidAVD\\.android\\build-cache\\b90c25bbdb5204d41f3ed3a8ac8912e927e5d7f3\\output\\res\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\AndroidStudioProjects\\MyApplication\\calculatrice\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
