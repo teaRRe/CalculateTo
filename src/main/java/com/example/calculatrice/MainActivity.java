@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -37,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private Stack mainText2 = new Stack();
     private TextView text_minor;
     private int stateFlag;
-    private LinearLayout lay_calLay;
+
+    private LinkedList<Double> optItem = new LinkedList<Double>();
+
+    private Stack optStack = new Stack();
+    private LinkedList<String> symList = new LinkedList<String>();
+
     //M运算
     private Button btn_mc;private Button btn_mc_in;private Button btn_mc_de;private Button btn_mr;
     //0~9
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //全屏
+        hideBottomUIMenu();
 
         //获取窗口管理器
         DisplayMetrics dm = new DisplayMetrics();
@@ -61,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         getButtonInstance();
         text_display = (TextView) findViewById(R.id.text_display);
         text_minor = (TextView) findViewById(R.id.text_minor);
-        lay_calLay = (LinearLayout) findViewById(R.id.lay_calLay);
 
         //动态获取高度
         BTN_CALCULATE_HEIGHT = convertDpToPixel((convertPixelToDp(dm.heightPixels)-150)/6 * 2);
@@ -90,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!mainText2.empty())
                     mainText2.clear();
+                if (!optItem.isEmpty())
+                    optItem.clear();
+                if (!symList.isEmpty())
+                    symList.clear();
+
                 text_display.setText("");
             }
         });
@@ -105,12 +117,13 @@ public class MainActivity extends AppCompatActivity {
                         s = s + mainText2.get(i);
                     }
                     text_display.setText(s);
-                    Log.i("Log",s);
+
+
+
+                    Log.i("Log","【C】button click：" + s);
                 }
             }
         });
-        //全屏
-        hideBottomUIMenu();
 
     }
 
@@ -182,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         btn_1.setOnTouchListener(listener_btn_num);btn_2.setOnTouchListener(listener_btn_num);btn_3.setOnTouchListener(listener_btn_num);
         btn_4.setOnTouchListener(listener_btn_num);btn_5.setOnTouchListener(listener_btn_num);btn_6.setOnTouchListener(listener_btn_num);
         btn_7.setOnTouchListener(listener_btn_num);btn_8.setOnTouchListener(listener_btn_num);btn_9.setOnTouchListener(listener_btn_num);
-        btn_left.setOnTouchListener(listener_btn_num);btn_0.setOnTouchListener(listener_btn_num);btn_dot.setOnTouchListener(listener_btn_num);
+        btn_left.setOnTouchListener(lsn_tou_btn_util);btn_0.setOnTouchListener(listener_btn_num);btn_dot.setOnTouchListener(listener_btn_num);
 
     }
 
@@ -203,25 +216,35 @@ public class MainActivity extends AppCompatActivity {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     v.setBackgroundColor(0xFF007def);
-                    Log.i("Log","--" + v.getTag() + "--");
+                    Log.i("Log","--【number button】 Action down : " + v.getTag() + "--");
 
                     if (stateFlag ==1){
                         text_display.setText("");
+
                         stateFlag =0;
                     }
 
                     /**
                      * 首先保证%和.不是第一个输入的字符
                      * 再保证不能重复输入这两个字符
+                     * 【模 % 是一个运算符！】
                      */
 
-                    if (!".".equals(v.getTag()) && !"%".equals(v.getTag())){
+                    if ( !".".equals(v.getTag()) && !"%".equals(v.getTag())){
+
                         text_display.setText(text_display.getText().toString() + v.getTag());//主窗口显示
+
                         mainText2.add(v.getTag());  //入栈
+                        optStack.add(v.getTag());   //入运算栈
+
                     }else if ( !mainText2.empty() && !".".equals(mainText2.get(mainText2.size() - 1))
                             && !"%".equals(mainText2.get(mainText2.size() - 1))) {
+
                         text_display.setText(text_display.getText().toString() + v.getTag());//主窗口显示
+
                         mainText2.add(v.getTag());  //入栈
+                        optStack.add(v.getTag());   //入运算栈
+
                     }
 
                     break;
@@ -229,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     v.setBackgroundColor(0xffffffff);
                     break;
             }
-            return false;   //相应点击事件
+            return false;   //响应点击事件
         }
     };
     //【等于】按钮触摸事件实现
@@ -256,44 +279,105 @@ public class MainActivity extends AppCompatActivity {
     Double calNum2;
     int symLocation;
     Stack temp1 = new Stack();
+
     //【等于】按钮点击事件
     View.OnClickListener lsn_clk_btn_cal = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            try{
-                String temps = "";
-                //栈转为集合
-                List tempList = new ArrayList(mainText2);
-                //集合转为字符串
-                for (Object s:tempList
-                        ) {
-                    temps = temps + s;
-                    Log.i("Log",s + "");
-                }
-                //寻找符号位置
-                for (int i = 0; i<temps.length(); i ++){
-                    if (tempList.get(i).equals(sym))
-                        symLocation = i;
-                }
 
-                symLocation = tempList.indexOf(sym);
-                //第二操作数
-                String calNum2Str="";
-
-                for (int i = symLocation +1; i<tempList.size(); i++){
-                    calNum2Str = calNum2Str + tempList.get(i);
-                }
-                Log.i("Log", "符号:" + sym + "  位置：" +symLocation + "第二个：" + calNum2Str + " 第一个：" +calNum1);
-
-                calNum2 = Double.parseDouble(calNum2Str.toString());
-
-                Double result = calBySymAndNum(calNum1,calNum2,sym);
-
-                stateFlag =1;
-                mainText2.clear();
+            Log.i("Log","【calculate】button click");
+            
+            try {
 
                 text_minor.setText(text_display.getText() + "=");
-                text_display.setText(result + "");
+
+                StringBuilder lastOpt = new StringBuilder();
+
+                String temp = "";
+                Log.i("eq","The Symbol: "+symList.getLast());
+                while (true){
+
+                    temp = mainText2.pop().toString();
+                    Log.i("eq","After pop: " +temp);
+
+                    if (temp.equals(symList.getLast())){
+                        break;
+                    }else{
+
+                        lastOpt.append(temp);
+                    }
+
+                }
+                lastOpt.reverse();
+                double lastOptDb = Double.parseDouble(lastOpt.toString());
+                optItem.add(lastOptDb);
+
+                for (double d:optItem
+                        ) {
+                    Log.i("Log","【Number List】" + d);
+                }
+                for (String s:symList
+                        ) {
+                    Log.i("Log","【Symbol List】" + s);
+                }
+
+                double s = Calculate(optItem, symList);
+
+                Log.i("Log", "结果是：" + s);
+
+                String display = String.valueOf(s);
+
+                text_display.setText(display);
+                stateFlag = 1;
+
+                mainText2.clear();
+                optItem.clear();
+                symList.clear();
+                optStack.clear();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }finally {
+
+            }
+
+            /**
+             * 寻找最后一个操作数
+             */
+
+            try{
+//                /*String temps = "";
+//                //栈转为集合
+//                List tempList = new ArrayList(mainText2);
+//                //集合转为字符串
+//                for (Object s:tempList
+//                        ) {
+//                    temps = temps + s;
+//                    Log.i("Log",s + "");
+//                }
+//                //寻找符号位置
+//                for (int i = 0; i<temps.length(); i ++){
+//                    if (tempList.get(i).equals(sym))
+//                        symLocation = i;
+//                }
+//                symLocation = tempList.indexOf(sym);
+//                //第二操作数
+//                String calNum2Str="";
+//
+//                for (int i = symLocation +1; i<tempList.size(); i++){
+//                    calNum2Str = calNum2Str + tempList.get(i);
+//                }
+//                Log.i("Log", "符号:" + sym + "  位置：" +symLocation + "第二个：" + calNum2Str + " 第一个：" +calNum1);
+//
+//                calNum2 = Double.parseDouble(calNum2Str.toString());
+//
+//                Double result = calBySymAndNum(calNum1,calNum2,sym);
+//
+//                stateFlag =1;
+//                mainText2.clear();
+//
+//                text_minor.setText(text_display.getText() + "=");
+//                text_display.setText(result +
             }catch (Exception e){
                 Log.i("Log",e.getMessage());
             }finally {
@@ -309,35 +393,78 @@ public class MainActivity extends AppCompatActivity {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     v.setBackgroundColor(0xFFffffff);
-                    Log.i("Log","------isCalSymbol-----in" + v.getTag().toString());
+                    Log.i("Log","--【operating button】Action down--" + v.getTag().toString());
                     /**
                      * 同时能且只能有一个运算符号显示在主窗口和入栈
                      */
+//                    try {
+//                        if (!mainText2.empty() && isCalSymbol(v.getTag().toString())){
+//
+//                            text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
+//                            mainText2.add(v.getTag().toString());   //符号入栈
+//
+//                            temp1 = (Stack) mainText2.clone();
+//                            /*//符号的位置
+//                            symLocation = temp1.search(sym);*/
+//                            //获取栈顶的符号
+//                            sym = temp1.pop().toString();
+//                            //获取第一操作数
+//                            /**
+//                             * 操作数应该入列，以支持多项运算
+//                             * 并且，入列应该是一个通用操作，即凡是碰到操作符，之前的数字都应该入列。
+//                             * 栈里放的是所有字符，通过以下操作获取到数字
+//                             */
+//                            String tempString = "";
+//                            for (int i = 0; i < temp1.size(); i++){
+//                                tempString = tempString + temp1.get(i);
+//                            }
+//                            calNum1 =  Double.parseDouble(tempString);
+//                            //操作数入列
+//                            optItem.add(calNum1);
+//
+//                            //temp1 = null;
+//
+//                        }
+//                    }catch (Exception e){
+//
+//                    }finally {
+//
+//                    }
+
                     try {
-                        if (!mainText2.empty() && isCalSymbol(v.getTag().toString())){
+
+                        if ( !mainText2.empty() && isCalSymbol(v.getTag().toString())){
+
                             text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
-                            mainText2.add(v.getTag().toString());
 
+                            mainText2.add(v.getTag().toString());   //字符入主栈
 
-                            temp1 = (Stack) mainText2.clone();
-                        /*//符号的位置
-                        symLocation = temp1.search(sym);*/
-                            //获取栈顶的符号
-                            sym = temp1.pop().toString();
-                            //获取第一操作数
-                            String tempString = "";
-                            for (int i = 0; i < temp1.size(); i++){
-                                tempString = tempString + temp1.get(i);
+                            optStack.add(v.getTag().toString());    //入运算栈
+                            //获取并移除栈顶元素
+                            sym = optStack.pop().toString();
+
+                            String operating = "";
+                            //StringBuilder stringBuilder = new StringBuilder();
+                            for (int i = 0; i < optStack.size(); i++){
+                                operating = operating + optStack.get(i);
+                                //stringBuilder.append(optStack.get(i));
                             }
-                            calNum1 =  Double.parseDouble(tempString);
+                            calNum1 =  Double.parseDouble(operating);
 
-                            //temp1 = null;
+                            //操作数入列
+                            optItem.add(calNum1);
+                            //运算符号入队列
+                            symList.add(sym);
+
+                            Log.i("Log","入队列："+ calNum1 + " 符号：" + sym);
 
                         }
-                    }catch (Exception e){
 
-                    }finally {
-
+                    }catch (Exception e){ }
+                    finally {
+                        //清空运算栈
+                        if (!optStack.empty())
+                            optStack.clear();
                     }
 
                     break;
@@ -350,11 +477,12 @@ public class MainActivity extends AppCompatActivity {
     };
     //主窗口显示符号判别
     private boolean isCalSymbol(String sym){
-        if ("/".equals(sym) || "x".equals(sym) || "-".equals(sym) || "+".equals(sym)){
+        if ("/".equals(sym) || "x".equals(sym) || "-".equals(sym) || "+".equals(sym) || "%".equals(sym)){
             if ( !"/".equals(mainText2.get(mainText2.size()-1)) &&
                     !"x".equals(mainText2.get(mainText2.size()-1)) &&
                     !"-".equals(mainText2.get(mainText2.size()-1)) &&
-                    !"+".equals(mainText2.get(mainText2.size()-1)) ){
+                    !"+".equals(mainText2.get(mainText2.size()-1)) &&
+                    !"%".equals(mainText2.get(mainText2.size()-1))){
                 return true;
             }
         }else{
@@ -375,6 +503,41 @@ public class MainActivity extends AppCompatActivity {
                 return calnum1 / calnum2;
         }
         return 0.0;
+    }
+
+    double Calculate(LinkedList<Double> q, LinkedList<String> s)
+    {
+        double ans = q.getFirst();
+        q.pop();
+        while(!q.isEmpty())
+        {
+            String x = s.getFirst();
+            double y = q.getFirst();
+            if(x.equals("-"))
+            {
+                ans = ans-y;
+            }
+            else if(x.equals("+"))
+            {
+                ans = ans+y;
+            }
+            else if(x.equals("x"))
+            {
+                ans = ans*y;
+            }
+            else if(x.equals("/"))
+            {
+                ans = ans/y;
+            }
+            else if(x.equals("%"))
+            {
+                int temp = (int)ans % (int)y;
+                ans = temp;
+            }
+            q.pop();
+            s.pop();
+        }
+        return ans;
     }
 
 }

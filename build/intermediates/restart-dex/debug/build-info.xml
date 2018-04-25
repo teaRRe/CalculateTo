@@ -6,22 +6,22 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.2"
-    timestamp="1524459498576"
+    timestamp="1524616788321"
     token="2108363912320121340"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="180" />
+        duration="285" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="15" />
+        duration="6" />
     <task
         name="verifier"
-        duration="5" />
+        duration="3" />
 
     <artifact
         location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_7.apk"
@@ -32,17 +32,14 @@
 
     <build
         build-mode="FULL"
-        timestamp="1524458569574"
+        timestamp="1524616577356"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
-            location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\outputs\apk\calculatrice-debug.apk"
-            type="SPLIT_MAIN" />
+            location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
@@ -70,10 +67,13 @@
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
+        <artifact
+            location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\outputs\apk\calculatrice-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
-        timestamp="1524459363689"
+        timestamp="1524616683203"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\outputs\apk\calculatrice-debug.apk"
@@ -81,7 +81,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1524459498576"
+        timestamp="1524616788321"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_7.apk"
