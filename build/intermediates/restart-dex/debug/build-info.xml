@@ -6,22 +6,22 @@
     density="xxhdpi"
     format="10"
     plugin-version="2.3.2"
-    timestamp="1526283610969"
+    timestamp="1526286196058"
     token="2108363912320121340"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="154" />
+        duration="160" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="30" />
+        duration="13" />
     <task
         name="verifier"
-        duration="6" />
+        duration="4" />
 
     <artifact
         location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_7.apk"
@@ -73,7 +73,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1526283502537"
+        timestamp="1526286067127"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\outputs\apk\calculatrice-debug.apk"
@@ -81,7 +81,7 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1526283610969"
+        timestamp="1526286196058"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="D:\AndroidStudioProjects\MyApplication\calculatrice\build\intermediates\split-apk\debug\slices\slice_7.apk"

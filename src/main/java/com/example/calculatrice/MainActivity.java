@@ -574,7 +574,7 @@ public class MainActivity extends AppCompatActivity {
                 /**
                  * 乘除计算完以后计算加减
                  */
-                if (Scount == ops.size()){
+                if (Scount == ops.size() && Scount !=0){
                     int j = 0;
                     while (true){
                         double c1 = nums.get(j);
@@ -586,8 +586,10 @@ public class MainActivity extends AppCompatActivity {
 
                         t=calByNum(c1, c2, op);
 
-                        nums.add(i, t);
-
+                        nums.add(j, t);
+                        Log.i("Log",">>>>>>>j=" + j + "  nums:" + nums + "  ops.size()=" + ops.size() +
+                                "  ops:" + ops);
+                        j = 0;
                         if (ops.size() == 0)
                             break;
                     }
