@@ -38,10 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private Stack mainText2 = new Stack();
     private TextView text_minor;
     private int stateFlag;
-
+    //数字链表
     private LinkedList<Double> optItem = new LinkedList<Double>();
 
     private Stack optStack = new Stack();
+    //运算符号链表
     private LinkedList<String> symList = new LinkedList<String>();
 
     //M运算
@@ -90,8 +91,9 @@ public class MainActivity extends AppCompatActivity {
         btn_cal.setOnTouchListener(listener_btn_cal);
         btn_cal.setOnClickListener(lsn_clk_btn_cal);
 
-
-        //【DEL】按钮点击事件
+        /**
+         * 【DEL】按钮点击事件
+         */
         btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +107,9 @@ public class MainActivity extends AppCompatActivity {
                 text_display.setText("");
             }
         });
-        //【C】按钮点击事件
+        /**
+         * 【C】按钮点击事件
+         */
         btn_c.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +122,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     text_display.setText(s);
 
-
-
                     Log.i("Log","【C】button click：" + s);
                 }
             }
@@ -127,7 +129,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //隐藏虚拟按键，并且全屏
+    /**
+     * 隐藏虚拟按键，并且全屏
+     * 感谢网友！
+     */
     protected void hideBottomUIMenu() {
 
         if (Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
@@ -141,17 +146,31 @@ public class MainActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(uiOptions);
         }
     }
-    //px转dp
+    /**
+     * px转dp
+     * 感谢网友！
+     * @param pixel
+     * @return
+     */
     private int convertPixelToDp(int pixel) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return (int)(pixel/displayMetrics.density);
     }
-    //dp转px
+
+    /**
+     * dp转px
+     * 感谢网友！
+     * @param dp
+     * @return
+     */
     private int convertDpToPixel(int dp) {
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         return (int)(dp*displayMetrics.density);
     }
-    //获取所有按钮实例
+
+    /**
+     * 获取所有按钮实例
+     */
     private void getButtonInstance(){
         //0~9
         btn_0 = (Button) findViewById(R.id.btn_0); btn_1 = (Button) findViewById(R.id.btn_1);
@@ -176,7 +195,11 @@ public class MainActivity extends AppCompatActivity {
         btn_mc_de = (Button) findViewById(R.id.btn_mc_de);
         btn_mr = (Button) findViewById(R.id.btn_mr);
     }
-    //设置按钮高度
+
+    /**
+     * 设置按钮高度
+     * @param height
+     */
     private void setBtnHeight(int height){
         btn_0.setHeight(height);btn_1.setHeight(height);btn_2.setHeight(height);btn_3.setHeight(height);
         btn_4.setHeight(height);btn_5.setHeight(height);btn_6.setHeight(height);btn_7.setHeight(height);
@@ -190,7 +213,10 @@ public class MainActivity extends AppCompatActivity {
         btn_mc.setHeight(height);btn_mc_in.setHeight(height);btn_mc_de.setHeight(height);btn_mr.setHeight(height);
 
     }
-    //【数字】按钮监触摸事件调用
+
+    /**
+     * 【数字】按钮监触摸事件调用
+     */
     private void setOnTouch(){
         btn_1.setOnTouchListener(listener_btn_num);btn_2.setOnTouchListener(listener_btn_num);btn_3.setOnTouchListener(listener_btn_num);
         btn_4.setOnTouchListener(listener_btn_num);btn_5.setOnTouchListener(listener_btn_num);btn_6.setOnTouchListener(listener_btn_num);
@@ -198,8 +224,9 @@ public class MainActivity extends AppCompatActivity {
         btn_left.setOnTouchListener(lsn_tou_btn_util);btn_0.setOnTouchListener(listener_btn_num);btn_dot.setOnTouchListener(listener_btn_num);
 
     }
-
-    //【util】区触摸事件调用
+    /**
+     * 【加减乘除】区触摸事件调用
+     */
     private void setUtilTouch(){
         btn_c.setOnTouchListener(lsn_tou_btn_util);btn_div.setOnTouchListener(lsn_tou_btn_util);
         btn_mul.setOnTouchListener(lsn_tou_btn_util);btn_del.setOnTouchListener(lsn_tou_btn_util);
@@ -208,28 +235,27 @@ public class MainActivity extends AppCompatActivity {
         btn_mc.setOnTouchListener(lsn_tou_btn_util);btn_mc_in.setOnTouchListener(lsn_tou_btn_util);
         btn_mc_de.setOnTouchListener(lsn_tou_btn_util);btn_mr.setOnTouchListener(lsn_tou_btn_util);
     }
-
-    //【数字】按钮触摸监听事件实现
+    /**
+     * 【数字】按钮触摸监听事件实现
+     */
     View.OnTouchListener listener_btn_num = new View.OnTouchListener(){
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     v.setBackgroundColor(0xFF007def);
-                    Log.i("Log","--【number button】 Action down : " + v.getTag() + "--");
+                    Log.i("Log","【number button】 Action down : " + v.getTag() + "");
 
                     if (stateFlag ==1){
                         text_display.setText("");
 
                         stateFlag =0;
                     }
-
                     /**
                      * 首先保证%和.不是第一个输入的字符
                      * 再保证不能重复输入这两个字符
                      * 【模 % 是一个运算符！】
                      */
-
                     if ( !".".equals(v.getTag()) && !"%".equals(v.getTag())){
 
                         text_display.setText(text_display.getText().toString() + v.getTag());//主窗口显示
@@ -255,7 +281,9 @@ public class MainActivity extends AppCompatActivity {
             return false;   //响应点击事件
         }
     };
-    //【等于】按钮触摸事件实现
+    /**
+     * 【等于】按钮触摸事件实现
+     */
     View.OnTouchListener listener_btn_cal = new View.OnTouchListener(){
 
         public boolean onTouch(View v, MotionEvent event) {
@@ -280,52 +308,57 @@ public class MainActivity extends AppCompatActivity {
     int symLocation;
     Stack temp1 = new Stack();
 
-    //【等于】按钮点击事件
+    /**
+     * 构建最后一个操作数
+     * @return
+     */
+    private double getLastNum(){
+        StringBuilder lastOpt = new StringBuilder();
+
+        String temp = "";
+        //Log.i("eq","The Symbol: "+symList.getLast());
+        while (true){
+
+            temp = mainText2.pop().toString();
+            Log.i("eq","After pop: " +temp);
+
+            if (temp.equals(symList.getLast())){
+                break;
+            }else{
+                lastOpt.append(temp);
+            }
+        }
+        lastOpt.reverse();
+        double lastOptDb = Double.parseDouble(lastOpt.toString());
+        return lastOptDb;
+    }
+    /**
+     * 【等于】按钮点击事件
+     */
     View.OnClickListener lsn_clk_btn_cal = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
             Log.i("Log","【calculate】button click");
-            
+
+                //次窗口
+            text_minor.setText(text_display.getText() + "=");
+
             try {
-
-                text_minor.setText(text_display.getText() + "=");
-
-                StringBuilder lastOpt = new StringBuilder();
-
-                String temp = "";
-                Log.i("eq","The Symbol: "+symList.getLast());
-                while (true){
-
-                    temp = mainText2.pop().toString();
-                    Log.i("eq","After pop: " +temp);
-
-                    if (temp.equals(symList.getLast())){
-                        break;
-                    }else{
-
-                        lastOpt.append(temp);
-                    }
-
-                }
-                lastOpt.reverse();
-                double lastOptDb = Double.parseDouble(lastOpt.toString());
+                //获取最后一个输入数
+                double lastOptDb = getLastNum();
+                //添加进链表
                 optItem.add(lastOptDb);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
-                for (double d:optItem
-                        ) {
-                    Log.i("Log","【Number List】" + d);
-                }
-                for (String s:symList
-                        ) {
-                    Log.i("Log","【Symbol List】" + s);
-                }
+                //double s = Calculate(optItem, symList);
+                double s2 = CalculateByOrder(optItem, symList);
+                //Log.i("Log", "结果是：" + s);
+                Log.i("Log", "四则顺序算法结果是：" + s2);
 
-                double s = Calculate(optItem, symList);
-
-                Log.i("Log", "结果是：" + s);
-
-                String display = String.valueOf(s);
+                String display = String.valueOf(s2);
 
                 text_display.setText(display);
                 stateFlag = 1;
@@ -335,110 +368,27 @@ public class MainActivity extends AppCompatActivity {
                 symList.clear();
                 optStack.clear();
 
-            }catch (Exception e){
-                e.printStackTrace();
-            }finally {
-
-            }
-
-            /**
-             * 寻找最后一个操作数
-             */
-
-            try{
-//                /*String temps = "";
-//                //栈转为集合
-//                List tempList = new ArrayList(mainText2);
-//                //集合转为字符串
-//                for (Object s:tempList
-//                        ) {
-//                    temps = temps + s;
-//                    Log.i("Log",s + "");
-//                }
-//                //寻找符号位置
-//                for (int i = 0; i<temps.length(); i ++){
-//                    if (tempList.get(i).equals(sym))
-//                        symLocation = i;
-//                }
-//                symLocation = tempList.indexOf(sym);
-//                //第二操作数
-//                String calNum2Str="";
-//
-//                for (int i = symLocation +1; i<tempList.size(); i++){
-//                    calNum2Str = calNum2Str + tempList.get(i);
-//                }
-//                Log.i("Log", "符号:" + sym + "  位置：" +symLocation + "第二个：" + calNum2Str + " 第一个：" +calNum1);
-//
-//                calNum2 = Double.parseDouble(calNum2Str.toString());
-//
-//                Double result = calBySymAndNum(calNum1,calNum2,sym);
-//
-//                stateFlag =1;
-//                mainText2.clear();
-//
-//                text_minor.setText(text_display.getText() + "=");
-//                text_display.setText(result +
-            }catch (Exception e){
-                Log.i("Log",e.getMessage());
-            }finally {
-
-            }
 
         }
     };
-    //【util】区、M行触摸事件实现
+    /**
+     * 【加减乘除】区、M行触摸事件实现
+     */
     View.OnTouchListener lsn_tou_btn_util = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
                     v.setBackgroundColor(0xFFffffff);
-                    Log.i("Log","--【operating button】Action down--" + v.getTag().toString());
+                    Log.i("Log","【operating button】Action down--" + v.getTag().toString());
                     /**
-                     * 同时能且只能有一个运算符号显示在主窗口和入栈
+                     * 同时能且只能有一个运算符号(+-x/)显示在主窗口和入栈
                      */
-//                    try {
-//                        if (!mainText2.empty() && isCalSymbol(v.getTag().toString())){
-//
-//                            text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
-//                            mainText2.add(v.getTag().toString());   //符号入栈
-//
-//                            temp1 = (Stack) mainText2.clone();
-//                            /*//符号的位置
-//                            symLocation = temp1.search(sym);*/
-//                            //获取栈顶的符号
-//                            sym = temp1.pop().toString();
-//                            //获取第一操作数
-//                            /**
-//                             * 操作数应该入列，以支持多项运算
-//                             * 并且，入列应该是一个通用操作，即凡是碰到操作符，之前的数字都应该入列。
-//                             * 栈里放的是所有字符，通过以下操作获取到数字
-//                             */
-//                            String tempString = "";
-//                            for (int i = 0; i < temp1.size(); i++){
-//                                tempString = tempString + temp1.get(i);
-//                            }
-//                            calNum1 =  Double.parseDouble(tempString);
-//                            //操作数入列
-//                            optItem.add(calNum1);
-//
-//                            //temp1 = null;
-//
-//                        }
-//                    }catch (Exception e){
-//
-//                    }finally {
-//
-//                    }
-
                     try {
 
                         if ( !mainText2.empty() && isCalSymbol(v.getTag().toString())){
-
                             text_display.setText(text_display.getText().toString()+v.getTag()); //主窗口显示
-
                             mainText2.add(v.getTag().toString());   //字符入主栈
-
                             optStack.add(v.getTag().toString());    //入运算栈
                             //获取并移除栈顶元素
                             sym = optStack.pop().toString();
@@ -475,7 +425,11 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-    //主窗口显示符号判别
+    /**
+     * 主窗口显示符号判别
+     * @param sym
+     * @return
+     */
     private boolean isCalSymbol(String sym){
         if ("/".equals(sym) || "x".equals(sym) || "-".equals(sym) || "+".equals(sym) || "%".equals(sym)){
             if ( !"/".equals(mainText2.get(mainText2.size()-1)) &&
@@ -491,20 +445,38 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private Double calBySymAndNum(Double calnum1, Double calnum2, String sym){
+    /**
+     * 基本运算
+     * @param calnum1
+     * @param calnum2
+     * @param sym
+     * @return
+     */
+    private Double calByNum(Double calnum1, Double calnum2, String sym){
+        double result = 0.0;
         switch (sym){
             case "x":
-                return calnum1 * calnum2;
+                result = calnum1 * calnum2;
+                break;
             case "+":
-                return calnum1 + calnum2;
+                result = calnum1 + calnum2;
+                break;
             case "-":
-                return calnum1 - calnum2;
+                result = calnum1 - calnum2;
+                break;
             case "/":
-                return calnum1 / calnum2;
+                result = calnum1 / calnum2;
+                break;
         }
-        return 0.0;
+        return result;
     }
 
+    /**
+     * 不考虑四则运算规则计算
+     * @param q
+     * @param s
+     * @return
+     */
     double Calculate(LinkedList<Double> q, LinkedList<String> s)
     {
         double ans = q.getFirst();
@@ -540,4 +512,91 @@ public class MainActivity extends AppCompatActivity {
         return ans;
     }
 
+    /**
+     * 四则运算规则运算
+     * @param nums
+     * @param ops
+     * @return
+     */
+    private double CalculateByOrder(LinkedList<Double> nums, LinkedList<String> ops){
+        double t = 0.0;
+        double [] position;
+        /**
+         * 看一下运算式里的乘除法和加减法数量
+         */
+        int Fcount = 0;
+        int Scount = 0;
+        for (String s:ops ){
+            if (s.equals("x") || s.equals("/")){
+                Fcount++;
+            }
+        }
+        for (String s:ops){
+            if (s.equals("+") || s.equals("-")){
+                Scount++;
+            }
+        }
+        Log.i("Log", "Fcount=" + Fcount+" Scount=" + Scount);
+        /**
+         * 如果是单项式
+         */
+        if (Fcount == 1 && Scount == 0){
+            t = calByNum(nums.getFirst(), nums.getLast(), ops.getFirst());
+        } else if (Scount == 1 && Fcount == 0){
+            t = calByNum(nums.getFirst(), nums.getLast(), ops.getFirst());
+        }else {
+            /**
+             * 如果是多项式
+             */
+            int i = 0;
+            while (true){
+                /**
+                 * 先把乘除计算完
+                 */
+                if (ops.get(i).equals("x") || ops.get(i).equals("/")){
+                    double c1 = nums.get(i);
+                    double c2 = nums.get(i+1);
+                    String op = ops.get(i);
+                    nums.remove(i);
+                    nums.remove(i);
+                    ops.remove(i);
+
+                    t=calByNum(c1, c2, op);
+
+                    nums.add(i, t);
+
+                    Log.i("Log",">>>>>>>i=" + i + "  nums:" + nums + "  ops.size()=" + ops.size() +
+                    "  ops:" + ops);
+                    i=0;
+                }else{
+                    i++;
+                }
+                /**
+                 * 乘除计算完以后计算加减
+                 */
+                if (Scount == ops.size()){
+                    int j = 0;
+                    while (true){
+                        double c1 = nums.get(j);
+                        double c2 = nums.get(j+1);
+                        String op = ops.get(j);
+                        nums.remove(j);
+                        nums.remove(j);
+                        ops.remove(j);
+
+                        t=calByNum(c1, c2, op);
+
+                        nums.add(i, t);
+
+                        if (ops.size() == 0)
+                            break;
+                    }
+                }
+                if (ops.size() == 0)
+                    break;
+            }
+        }
+
+        return t;
+    }
 }
